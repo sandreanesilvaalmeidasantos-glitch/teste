@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Exercícios - Missão Educacional</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  />
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
+    }
+  </style>
+</head>
+<body class="flex flex-col items-center p-6">
+  <header class="w-full max-w-xl mb-8 flex items-center justify-between">
+    <h1 class="text-3xl font-bold drop-shadow-md">Exercícios do Módulo</h1>
+    <button
+      id="btnBack"
+      aria-label="Voltar para seleção de módulos"
+      class="text-white bg-white/20 hover:bg-white/40 rounded-full p-2 shadow-md transition"
+      title="Voltar"
+    >
+      <i class="fas fa-arrow-left text-xl"></i>
+    </button>
+  </header>
+
+  <main class="w-full max-w-xl grid grid-cols-1 gap-6">
+    <!-- Cards de exercícios serão inseridos aqui via JS -->
+  </main>
+
+  <script>
+    // Simulação: obter módulo via query string
+    const urlParams = new URLSearchParams(window.location.search);
+    const modulo = urlParams.get('modulo') || 'Módulo não especificado';
+
+    // Títulos amigáveis para módulos
+    const modulosNomes = {
+      matematica: 'Matemática Básica',
+      portugues: 'Português',
+      ciencias: 'Ciências',
+      ingles: 'Inglês',
+      geografia: 'Geografia',
+      historia: 'História',
+    };
+
+    // Exercícios simulados para cada módulo
+    const exerciciosPorModulo = {
+      matematica: [
+        { id: 1, titulo: 'Adição e Subtração', descricao: 'Pratique operações básicas de adição e subtração.' },
+        { id: 2, titulo: 'Multiplicação', descricao: 'Exercícios para dominar a tabuada.' },
+        { id: 3, titulo: 'Divisão', descricao: 'Aprenda a dividir números com facilidade.' },
+      ],
+      portugues: [
+        { id: 1, titulo: 'Ortografia', descricao: 'Reforce a escrita correta das palavras.' },
+        { id: 2, titulo: 'Gramática', descricao: 'Estude regras gramaticais importantes.' },
+        { id: 3, titulo: 'Interpretação de Texto', descricao: 'Compreenda textos e responda perguntas.' },
+      ],
+      ciencias: [
+        { id: 1, titulo: 'Corpo Humano', descricao: 'Conheça as partes e funções do corpo.' },
+        { id: 2, titulo: 'Animais', descricao: 'Aprenda sobre diferentes espécies.' },
+        { id: 3, titulo: 'Plantas', descricao: 'Estude o ciclo de vida das plantas.' },
+      ],
+      ingles: [
+        { id: 1, titulo: 'Vocabulário Básico', descricao: 'Aprenda palavras essenciais em inglês.' },
+        { id: 2, titulo: 'Gramática', descricao: 'Regras básicas para formar frases.' },
+        { id: 3, titulo: 'Conversação', descricao: 'Pratique diálogos simples.' },
+      ],
+      geografia: [
+        { id: 1, titulo: 'Mapas', descricao: 'Entenda como ler mapas e globos.' },
+        { id: 2, titulo: 'Clima', descricao: 'Estude os diferentes tipos de clima.' },
+        { id: 3, titulo: 'Regiões do Brasil', descricao: 'Conheça as regiões brasileiras.' },
+      ],
+      historia: [
+        { id: 1, titulo: 'História do Brasil', descricao: 'Principais eventos históricos do Brasil.' },
+        { id: 2, titulo: 'Civilizações Antigas', descricao: 'Estude as primeiras civilizações.' },
+        { id: 3, titulo: 'Idade Média', descricao: 'Conheça o período medieval.' },
+      ],
+    };
+
+    // Atualiza título com nome do módulo
+    const tituloModulo = modulosNomes[modulo.toLowerCase()] || modulo;
+    document.querySelector('h1').textContent = `Exercícios de ${tituloModulo}`;
+
+    const main = document.querySelector('main');
+    const exercicios = exerciciosPorModulo[modulo.toLowerCase()] || [];
+
+    if (exercicios.length === 0) {
+      main.innerHTML = '<p class="text-center text-lg">Nenhum exercício disponível para este módulo.</p>';
+    } else {
+      exercicios.forEach((ex) => {
+        const card = document.createElement('article');
+        card.className = 'bg-white/20 rounded-xl p-6 shadow-md transition hover:bg-white/40 cursor-pointer';
+        card.tabIndex = 0;
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', `Iniciar exercício: ${ex.titulo}`);
+
+        card.innerHTML = `
+          <h2 class="text-2xl font-semibold mb-2">${ex.titulo}</h2>
+          <p class="mb-4">${ex.descricao}</p>
+          <button class="bg-gradient-to-r from-red-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:scale-105 transition-transform">
+            Iniciar Exercício
+          </button>
+        `;
+
+        // Evento para iniciar exercício (exemplo)
+        card.querySelector('button').addEventListener('click', () => {
+          alert(`Iniciando exercício: ${ex.titulo}`);
+          // Aqui você pode redirecionar para a tela do exercício, por exemplo:
+          // window.location.href = `exercicio.html?modulo=${modulo}&exercicio=${ex.id}`;
+        });
+
+        main.appendChild(card);
+      });
+    }
+
+    // Botão voltar para seleção de módulos
+    document.getElementById('btnBack').addEventListener('click', () => {
+      window.history.back();
+      // Ou redirecione diretamente:
+      // window.location.href = 'modulos.html';
+    });
+  </script>
+</body>
+</html>
