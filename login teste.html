@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Login -Missão Educacional Gamificada</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+            animation: backgroundMove 20s ease-in-out infinite;
+        }
+        @keyframes backgroundMove {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .star {
+            position: absolute;
+            color: white;
+            font-size: 20px;
+            animation: twinkle 1.5s infinite ease-in-out alternate;
+        }
+        @keyframes twinkle {
+            from { opacity: 0.3; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1.2); }
+        }
+        .form-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.8s ease-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .btn-enter {
+            background: linear-gradient(45deg, #ff6b6b, #ffa500);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .btn-enter:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen relative">
+    <!-- Animações de estrelas flutuantes -->
+    <div id="stars" class="absolute inset-0 pointer-events-none"></div>
+
+    <div class="form-card p-8 w-full max-w-md">
+        <div class="text-center mb-6">
+            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c1a357fd-a9e9-4df9-a0be-62465c24ff9b.png" alt="Imagem de troféu dourado brilhante com raio de luz saindo, simbolizando conquistas e vitórias em missões educacionais" class="mx-auto mb-4 rounded-full shadow-lg">
+            <h1 class="text-2xl font-bold text-gray-800">Missão Educacional</h1>
+            <p class="text-gray-600">Junte-se à aventura de aprender <br> e acumule pontos, streaks e medalhas!</p>
+        </div>
+
+        <form id="loginForm" class="space-y-4">
+            <div class="flex items-center border border-gray-300 rounded-lg px-3 py-2 focus-within:ring-2 focus-within:ring-blue-500">
+                <i class="fas fa-user text-gray-500 mr-2"></i>
+                <input type="email" id="email" placeholder="Digite seu email de estudante" class="flex-1 outline-none bg-transparent" required>
+            </div>
+            <div class="flex items-center border border-gray-300 rounded-lg px-3 py-2 focus-within:ring-2 focus-within:ring-blue-500">
+                <i class="fas fa-lock text-gray-500 mr-2"></i>
+                <input type="password" id="senha" placeholder="Digite sua senha secreta" class="flex-1 outline-none bg-transparent" required>
+            </div>
+
+            <select id="role" class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="aluno">Entrar como Aluno</option>
+                <option value="professor">Entrar como Professor</option>
+            </select>
+
+            <button type="submit" class="btn-enter text-white font-bold py-3 px-6 rounded-lg w-full hover:bg-orange-600 transition-all duration-300">
+                <i class="fas fa-sign-in-alt mr-2"></i>Iniciar Missão
+            </button>
+        </form>
+
+        <div class="text-center mt-4">
+            <p class="text-sm text-gray-600">Esqueceu sua senha? <a href="#" class="text-blue-500 hover:underline">Recuperar aqui</a></p>
+            <p class="text-sm text-gray-600 mt-2">Novo aqui? <a href="#" class="text-blue-500 hover:underline">Cadastra-se agora</a> e desbloqueie primeiras conquistas!</p>
+        </div>
+
+        <!-- Elementos de gamificação -->
+        <div class="text-center mt-6">
+            <div class="flex justify-center space-x-4">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4ca62540-dda3-4ef8-a2a4-e39f9e5237fe.png" alt="Estrela vermelha brilhante com pontos dourados, representando pontos e estrelas acumulados em missões" class="w-12 h-12 rounded-full shadow animate-pulse">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e7894583-1b09-4aea-a8b4-a3c763c708eb.png" alt="Troféu dourado sólido com base marrom, simbolizando medalhas de conquistas por completar exercícios" class="w-12 h-12 rounded-full shadow animate-pulse">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c5ae7f93-7a63-4912-aebb-9e5f75318175.png" alt="Chama azul-púrpura vibrante, indicando sequência de dias consecutivos e streak ativo" class="w-12 h-12 rounded-full shadow animate-bounce">
+            </div>
+            <p class="text-xs text-gray-700 mt-2">Acumule estrelas para bônus, ganhe troféus e mantenha a chama viva!</p>
+        </div>
+    </div>
+
+    <script>
+        // Cria estrelas flutuantes animadas
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('i');
+                star.className = 'fas fa-star star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 10 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Validação básica do formulário
+        function validateForm(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+            const role = document.getElementById('role').value;
+
+            if (!email || !senha) {
+                alert('Preencha todos os campos da missão!');
+                return;
+            }
+
+            // Simulação de login (substituir por lógica real no back-end)
+            alert(`Missão iniciada como ${role.charAt(0).toUpperCase() + role.slice(1)}!\nBem-vindo de volta, aventureiro. Seu progresso continua esperando.`);
+
+            // Redirecionar ou carregar próxima tela (placeholder)
+            // window.location.href = 'dashboard.html'; // Por enquanto, apenas alert
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', createStars);
+        document.getElementById('loginForm').addEventListener('submit', validateForm);
+
+        // Animações adicionais on hover para elementos gamificados
+        document.querySelectorAll('.w-12').forEach(el => {
+            el.addEventListener('mouseover', () => el.classList.add('animate-ping'));
+            el.addEventListener('mouseout', () => el.classList.remove('animate-ping'));
+        });
+    </script>
+</body>
+</html>
+</content>
+</create_file>
